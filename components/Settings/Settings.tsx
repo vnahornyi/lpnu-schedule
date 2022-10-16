@@ -106,7 +106,7 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
     }
 
     return (
-        <Container maxW='full' minH='100vh' bg={useColorModeValue('green.400', 'gray.800')}>
+        <Container maxW='full' minH='100vh' bg={useColorModeValue('green.300', 'gray.800')}>
             <Flex justify='center' align='center' minH='inherit'>
                 <Container maxW='xl' p='2'>
                     <Text
@@ -148,7 +148,6 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                                             key={institute}
                                             onClick={handleSelectInstitute.bind(null, institute)}
                                             variant='ghost'
-                                            color='white'
                                         >
                                             {institute}
                                         </Button>
@@ -194,28 +193,30 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             </ModalBody>
                             </ModalContent>
                         </Modal>
-                        <Text
-                            fontSize={{ base: 'md', md: 'lg' }}
-                            fontWeight='bold'
-                            color='white'
-                            align='center'
-                        >
-                            Підгрупа
-                        </Text>
-                        <ButtonGroup justifyContent='center'>
-                            <Button
-                                onClick={handleSelectSubgroup.bind(null, 1)}
-                                isActive={selected.subgroup === 1}
+                        {isSettingsPage && <>
+                            <Text
+                                fontSize={{ base: 'md', md: 'lg' }}
+                                fontWeight='bold'
+                                color='white'
+                                align='center'
                             >
-                                1
-                            </Button>
-                            <Button
-                                onClick={handleSelectSubgroup.bind(null, 2)}
-                                isActive={selected.subgroup === 2}
-                            >
-                                2
-                            </Button>
-                        </ButtonGroup>
+                                Підгрупа
+                            </Text>
+                            <ButtonGroup justifyContent='center'>
+                                <Button
+                                    onClick={handleSelectSubgroup.bind(null, 1)}
+                                    isActive={selected.subgroup === 1}
+                                >
+                                    1
+                                </Button>
+                                <Button
+                                    onClick={handleSelectSubgroup.bind(null, 2)}
+                                    isActive={selected.subgroup === 2}
+                                >
+                                    2
+                                </Button>
+                            </ButtonGroup>
+                        </>}
                         {isSettingsPage && <ThemePicker />}
                         {shouldRenderAddBtn && (
                             <Button onClick={handleAdd}>
