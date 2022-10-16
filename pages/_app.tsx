@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import type { AppProps } from 'next/app';
 import { ChakraProvider, CSSReset, useColorModeValue } from '@chakra-ui/react';
 import { Provider } from 'react-redux';

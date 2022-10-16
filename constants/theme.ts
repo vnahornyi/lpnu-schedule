@@ -6,6 +6,14 @@ const config: ThemeConfig = {
   useSystemColorMode: true,
 };
 
-const theme = extendTheme({ config });
+const theme = extendTheme({ config, styles: {
+  global: {
+    '@media (display-mode: standalone)': {
+      '*': {
+        userSelect: 'none'
+      }
+    }
+  }
+} });
 
 export default theme;
