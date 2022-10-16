@@ -14,10 +14,25 @@ import { REDIRECT } from 'constants/routes';
 
 const InfoModal = dynamic(() => import('components/UI/InfoModal'), { ssr: false });
 
+export const ThemedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const themeColor = useColorModeValue('#68D391', '#1A202C');
+
+  return <>
+    <Head>
+      <title>Розклад NULP</title>
+      <meta
+        name='viewport'
+        content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+      />
+      <meta name="theme-color" content={themeColor} />
+    </Head>
+    {children}
+  </>;
+}
+
 const App: React.FC<AppProps> = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { events } = useRouter();
-  const themeColor = useColorModeValue('green.300', 'gray.700');
   const [isConfirmed, setConfirmed] = useState<string | null>(null);
   const router = useRouter();
 
@@ -56,17 +71,11 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
 
   return (
     <Provider store={store}>
-      <Head>
-        <title>Розклад NULP</title>
-        <meta
-            name='viewport'
-            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
-        />
-        <meta name="theme-color" content={themeColor} />
-      </Head>
       <ChakraProvider theme={theme}>
         <CSSReset />
-        <Component {...props.pageProps} />
+        <ThemedLayout>
+          <Component {...props.pageProps} />
+        </ThemedLayout>
         <InfoModal isOpen={isConfirmed === ''} onClose={handleClose} />
       </ChakraProvider>
     </Provider>
