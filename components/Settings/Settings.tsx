@@ -127,7 +127,6 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             Факультет
                         </Text>
                         <Button
-                            color='white'
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'institute')}
                         >
@@ -166,7 +165,6 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             Група
                         </Text>
                         <Button
-                            color='white'
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'group')}
                         >
@@ -188,7 +186,6 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                                             key={group}
                                             onClick={handleSelectGroup.bind(null, group)}
                                             variant='ghost'
-                                            color='white'
                                         >
                                             {group}
                                         </Button>
