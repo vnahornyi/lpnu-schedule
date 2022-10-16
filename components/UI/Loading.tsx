@@ -16,7 +16,7 @@ const Loading: React.FC = () => {
     const logoSizes = useBreakpointValue({ base: 160, md: 220 });
     
     return (
-        <Container maxW='full' minH='100vh' bg={useColorModeValue('green.400', 'gray.800')}>
+        <Container maxW='full' minH='100vh' bg={useColorModeValue('green.300', 'gray.800')}>
             <Flex justify='center' align='center' minH='inherit'>
                 <ScaleFade initialScale={0.3} in={isBrowser}>
                     <Stack direction='column' spacing={10}>
