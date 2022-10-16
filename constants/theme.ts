@@ -10,7 +10,8 @@ const theme = extendTheme({ config, styles: {
   global: {
     '@media (display-mode: standalone)': {
       '*': {
-        userSelect: 'none'
+        userSelect: 'none',
+        WebkitTapHighlightColor: 'transparent'
       }
     }
   }
