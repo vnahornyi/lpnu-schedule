@@ -1,0 +1,31 @@
+{
+    "headers": [
+        {
+            "source": "/schedule/[group].js",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "s-maxage=60, stale-while-revalidate"
+                }
+            ]
+        },
+        {
+            "source": "/settings.js",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "s-maxage=28800, stale-while-revalidate"
+                }
+            ]
+        },
+        {
+            "source": "/setup.js",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "s-maxage=28800, stale-while-revalidate"
+                }
+            ]
+        }
+    ]
+}
