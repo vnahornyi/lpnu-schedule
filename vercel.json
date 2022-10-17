@@ -1,7 +1,7 @@
 {
     "headers": [
         {
-            "source": "/schedule/[group].js",
+            "source": "/schedule/[group]",
             "headers": [
                 {
                     "key": "Cache-Control",
@@ -10,7 +10,7 @@
             ]
         },
         {
-            "source": "/settings.js",
+            "source": "/settings",
             "headers": [
                 {
                     "key": "Cache-Control",
@@ -19,7 +19,7 @@
             ]
         },
         {
-            "source": "/setup.js",
+            "source": "/setup",
             "headers": [
                 {
                     "key": "Cache-Control",
