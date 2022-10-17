@@ -84,7 +84,7 @@ export const prepareApp = (): AppThunk => {
 
         dispatch(setSelectedGroup(typeof group === 'string' ? group : ''));
         dispatch(setSelectedInstitute(typeof institute === 'string' ? institute : ''));
-        dispatch(setSubgroup(Number.isNaN(subGroup) && subGroup !== null ? +subGroup : 1));
+        dispatch(setSubgroup(!Number.isNaN(subGroup) && subGroup !== null ? +subGroup : 1));
         dispatch(setPrepared(true));
     }
 }
