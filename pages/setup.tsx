@@ -13,7 +13,7 @@ const SetupPage: NextPage = () => {
 
     if (!shouldRenderSettings) return <Setup onStart={setShouldRenderSettings.on} />;
 
-    return <Settings onBack={setShouldRenderSettings.off} />;
+    return <Settings />;
 }
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(store =>

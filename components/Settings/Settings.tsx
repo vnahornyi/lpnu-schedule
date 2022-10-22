@@ -11,7 +11,6 @@ import {
     ModalOverlay,
     Stack,
     Text,
-    useColorModeValue
 } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from 'hooks/useStore';
@@ -25,17 +24,12 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 
 const ThemePicker = dynamic(() => import('components/UI/ThemePicker'));
 
-interface ISettingsProps {
-    onBack: () => void;
-}
-
-const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
+const Settings: React.FC = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [modalId, setModalId] = useState<string | null>(null);
     const isSettingsPage = router.asPath.includes(SETTINGS);
     const shouldRenderAddBtn = isSettingsPage && !window.matchMedia('(display-mode: standalone)').matches;
-    const buttonColor = useColorModeValue('white', 'green.500');
     const {
         institutes,
         selectedGroup,
@@ -105,15 +99,13 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
     }
 
     return (
-        <Container maxW='full' minH='100vh' bg={useColorModeValue('green.300', 'gray.800')}>
+        <Container maxW='full' minH='100vh'>
             <Flex justify='center' align='center' minH='inherit'>
                 <Container maxW='xl' p='2'>
                     <Text
                         fontSize={{ base: '2xl', md: '4xl' }}
                         fontWeight='bold'
                         align='center'
-                        mb='20'
-                        color='white'
                     >
                         Налаштування
                     </Text>
@@ -121,15 +113,14 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                         <Text
                             fontSize={{ base: 'md', md: 'lg' }}
                             fontWeight='bold'
-                            color='white'
                         >
-                            Факультет
+                            Інститут
                         </Text>
                         <Button
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'institute')}
                         >
-                            {selected.institute || 'Виберіть факультет'}
+                            {selected.institute || 'Виберіть інститут'}
                         </Button>
                         <Modal
                             onClose={handleCloseModal}
@@ -138,7 +129,7 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                         >
                             <ModalOverlay />
                             <ModalContent>
-                            <ModalHeader>Виберіть факультет</ModalHeader>
+                            <ModalHeader>Виберіть інститут</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                                 <Stack w='full' spacing={2} direction='column' align='center'>
@@ -158,7 +149,6 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                         <Text
                             fontSize={{ base: 'md', md: 'lg' }}
                             fontWeight='bold'
-                            color='white'
                         >
                             Група
                         </Text>
@@ -196,7 +186,6 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             <Text
                                 fontSize={{ base: 'md', md: 'lg' }}
                                 fontWeight='bold'
-                                color='white'
                                 align='center'
                             >
                                 Підгрупа
@@ -222,22 +211,16 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                                 На початковий екран
                             </Button>
                         )}
-                        <Button
-                            color='green.500'
-                            w={{ base: 'full', sm: 'auto' }}
-                            onClick={handleConfirm}
-                            disabled={isDisabled}
-                        >
-                            Підтвердити
-                        </Button>
-                        <Button
-                            color={buttonColor}
-                            w={{ base: 'full', sm: 'auto' }}
-                            variant='ghost'
-                            onClick={onBack}
-                        >
-                            Назад
-                        </Button>
+                        {!isSettingsPage && (
+                            <Button
+                                color='green.500'
+                                w={{ base: 'full', sm: 'auto' }}
+                                onClick={handleConfirm}
+                                disabled={isDisabled}
+                            >
+                                Підтвердити
+                            </Button>
+                        )}
                     </Stack>
                 </Container>
             </Flex>

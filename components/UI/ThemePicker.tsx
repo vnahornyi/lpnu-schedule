@@ -1,5 +1,12 @@
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Flex, ButtonGroup, IconButton, Button, useColorMode } from '@chakra-ui/react';
+import { MdBrightnessAuto } from 'react-icons/md';
+
+import {
+    Flex,
+    ButtonGroup,
+    IconButton,
+    useColorMode
+} from '@chakra-ui/react';
 
 enum ColorModes {
     SYSTEM = 'system',
@@ -12,22 +19,22 @@ const ThemePicker: React.FC = () => {
 
     return (
         <Flex py='4' justify='center'>
-            <ButtonGroup size='sm' isAttached variant='outline'>
+            <ButtonGroup size='lg' isAttached variant='outline'>
                 <IconButton
                     aria-label='Змінити на світлу тему'
-                    color='white'
-                    icon={<SunIcon />}
+                    icon={<SunIcon w='20px' h='20px' />}
                     onClick={setColorMode.bind(null, ColorModes.LIGHT)}
                 />
                 <IconButton
                     aria-label='Змінити на темну тему'
-                    color='white'
-                    icon={<MoonIcon />}
+                    icon={<MoonIcon w='20px' h='20px' />}
                     onClick={setColorMode.bind(null, ColorModes.DARK)}
                 />
-                <Button onClick={setColorMode.bind(null, ColorModes.SYSTEM)} color='white'>
-                    Авто вибір теми
-                </Button>
+                <IconButton
+                    aria-label='Системна'
+                    onClick={setColorMode.bind(null, ColorModes.SYSTEM)}
+                    icon={<MdBrightnessAuto size={22} />}
+                />
             </ButtonGroup>
         </Flex>
     );
