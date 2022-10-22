@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { prepareApp } from 'store/settings';
 import { useRouter } from 'next/router';
-import { getCookie, setCookies } from 'cookies-next';
 import { REDIRECT } from 'constants/routes';
 
 const InfoModal = dynamic(() => import('components/UI/InfoModal'), { ssr: false });
@@ -37,7 +36,7 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const isConfirmed = !!getCookie('confirmed') || window.matchMedia('(display-mode: standalone)').matches;
+    const isConfirmed = !!localStorage.getItem('confirmed') || window.matchMedia('(display-mode: standalone)').matches;
 
     setConfirmed(isConfirmed ? '1' : '');
 
@@ -65,7 +64,7 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
   }, [store, events, isConfirmed]);
 
   const handleClose = () => {
-    setCookies('confirmed', '1');
+    localStorage.setItem('confirmed', '1');
     window.location.href = '/';
   }
 

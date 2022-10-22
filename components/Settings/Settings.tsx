@@ -22,7 +22,6 @@ import { useRouter } from 'next/router';
 import { setSettingsToCookies } from 'utils';
 import { SETTINGS } from 'constants/routes';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { setCookie } from 'cookies-next';
 
 const ThemePicker = dynamic(() => import('components/UI/ThemePicker'));
 
@@ -101,7 +100,7 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
     }
 
     const handleAdd = () => {
-        setCookie('confirmed', '');
+        localStorage.setItem('confirmed', '');
         window.location.href = '/';
     }
 

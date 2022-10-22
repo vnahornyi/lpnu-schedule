@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ILesson } from 'types';
 import { getCurrentUADate } from './date';
-import { setCookie, getCookie } from 'cookies-next';
 
 export function timeToDate(time: string) {
     const date = getCurrentUADate();
@@ -121,15 +120,15 @@ export function testSubgroup(lesson: ILesson, subgroup: number) {
 }
 
 export function setSettingsToCookies(group: string, subGroup: number, institute: string) {
-    setCookie('group', translit(group));
-    setCookie('subgroup', subGroup);
-    setCookie('institute', translit(institute));
+    localStorage.setItem('group', translit(group));
+    localStorage.setItem('subgroup', subGroup.toString());
+    localStorage.setItem('institute', translit(institute));
 }
 
 export function getSettingsFromCookies() {
-    const group = translit(getCookie('group') as string ?? '', true);
-    const subGroup = getCookie('subgroup') ?? null;
-    const institute = translit(getCookie('institute') as string ?? '', true);
+    const group = translit(localStorage.getItem('group') as string ?? '', true);
+    const subGroup = localStorage.getItem('subgroup') ?? null;
+    const institute = translit(localStorage.getItem('institute') as string ?? '', true);
 
     return { group, subGroup, institute };
 }

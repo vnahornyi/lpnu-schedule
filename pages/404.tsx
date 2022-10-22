@@ -1,13 +1,10 @@
 import { Container, Flex, Link, Text } from '@chakra-ui/react';
 import { NextPage } from 'next';
-import { deleteCookie } from 'cookies-next';
 
 const NotFoundPage: NextPage = () => {
     const hangleClearCache = (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        deleteCookie('subgroup');
-        deleteCookie('group');
-        deleteCookie('institute');
+        localStorage.clear();
         window.location.href = '/';
     }
 
