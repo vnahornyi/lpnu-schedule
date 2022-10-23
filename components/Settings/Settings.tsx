@@ -10,8 +10,10 @@ import {
     ModalContent,
     ModalHeader,
     ModalOverlay,
+    Show,
     Stack,
     Text,
+    useColorModeValue
 } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from 'hooks/useStore';
@@ -20,7 +22,7 @@ import dynamic from 'next/dynamic';
 import { setSelectedGroup, setSelectedInstitute, setSubgroup } from 'store/settings';
 import { useRouter } from 'next/router';
 import { setSettingsToLocalStorage } from 'utils';
-import { SETTINGS } from 'constants/routes';
+import { REDIRECT, SETTINGS } from 'constants/routes';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 const ThemePicker = dynamic(() => import('components/UI/ThemePicker'));
@@ -36,6 +38,8 @@ const Settings: React.FC = () => {
         selectedInstitute,
         subGroup
     } = useAppSelector(state => state.settings);
+
+    const isDisabled = !selectedGroup || !selectedInstitute;
 
     const groups = useMemo(() => {
         if (selectedInstitute) {
@@ -72,6 +76,10 @@ const Settings: React.FC = () => {
         setModalId(null);
     }
 
+    const handleConfirm = () => {
+        router.push(REDIRECT);
+    }
+
     return (
         <Container maxW='full' minH='100vh'>
             <Box
@@ -87,7 +95,12 @@ const Settings: React.FC = () => {
                     Налаштування
                 </Text>
             </Box>
-            <Flex justify='center' align='center' minH='calc(100vh - 86px - 116px)'>
+            <Flex
+                justify='center'
+                align='center'
+                minH='calc(100vh - 86px - 116px)'
+                pb={{ base: '0', lg: '82px' }}
+            >
                 <Container maxW='xl' p='2'>
                     <Stack spacing={4}>
                         <Text
@@ -193,6 +206,32 @@ const Settings: React.FC = () => {
                     </Stack>
                 </Container>
             </Flex>
+            <Show above='lg'>
+                <Box
+                    as='footer'
+                    p='4'
+                    pb='25px'
+                    w='full'
+                    pos='fixed'
+                    bottom='0'
+                    borderTop='1px solid'
+                    borderColor='gray.300'
+                    bgColor={useColorModeValue('white', 'gray.800')}
+                >
+                    <Button
+                        w='full'
+                        maxW='560px'
+                        mx='auto'
+                        display='block'
+                        colorScheme='green'
+                        rounded='xl'
+                        disabled={isDisabled}
+                        onClick={handleConfirm}
+                    >
+                        Підтвердити
+                    </Button>
+                </Box>
+            </Show>
         </Container>
     );
 }
