@@ -34,6 +34,7 @@ const Lesson: React.FC<ILessonProps> = ({ lesson, position }) => {
     const [start, end] = getHours(position);
     const isCurrentLesson = checkCurrentLesson(start, end, lesson.day);
     const lessonColorNotCurrent = useColorModeValue('gray.100', 'gray.700');
+    const textColor = useColorModeValue('black', 'white');
 
     return (
         <Flex justifyContent='space-evenly'>
@@ -65,7 +66,7 @@ const Lesson: React.FC<ILessonProps> = ({ lesson, position }) => {
                 h='auto'
                 p={{ base: '4', lg: '6' }}
                 bgColor={isCurrentLesson ? lessonColor : lessonColorNotCurrent}
-                color={isCurrentLesson ? 'white' : 'initial'}
+                color={isCurrentLesson ? 'white' : textColor}
                 rounded={{ base: 'xl', lg: '3xl' }}
             >
                 <Flex

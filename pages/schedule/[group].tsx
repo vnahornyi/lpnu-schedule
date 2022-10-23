@@ -54,7 +54,11 @@ const SchedulePage: NextPage = () => {
             .map(el => ({
                 day: el.day,
                 position: el.number,
-                lesson: el
+                lesson: {
+                    ...el,
+                    location: el.location.includes(',')
+                        ? el.location.substring(2) : el.location
+                }
             }));
     }, [week, serverSubGroup, lessons]);
 
