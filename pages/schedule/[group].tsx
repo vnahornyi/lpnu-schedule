@@ -1,6 +1,15 @@
 import { useCallback, useMemo } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Container, Fade, Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from '@chakra-ui/react';
+import {
+    Container,
+    Fade,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
+    useColorModeValue
+} from '@chakra-ui/react';
 import useBrowser from 'hooks/useBrowser';
 import dynamic from 'next/dynamic';
 import { wrapper } from 'store';
@@ -24,8 +33,8 @@ export const FormatedTab: React.FC<{ day: number }> = ({ day }) => {
             color={useColorModeValue('black', 'white')}
             dangerouslySetInnerHTML={{ __html: date.replace(',', '<br>') }}
             _selected={{
-                bgColor: 'green.300',
-                color: 'white'
+                bgColor: 'transparent',
+                color: useColorModeValue('green.500', 'green.300')
             }}
         />
     );
