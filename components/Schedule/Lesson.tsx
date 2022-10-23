@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 import { lessonColors } from 'constants/common';
+import useCurrentLesson from 'hooks/useCurrentLesson';
 import { ILesson } from 'types';
 import { getHours } from 'utils';
 
@@ -19,20 +20,10 @@ interface ILessonProps {
     position: number;
 }
 
-function checkCurrentLesson(start: string, end: string, day: number): boolean {
-    const currentDate = new Date();
-    const startTime = +start.replace(':', '.');
-    const endTime = +end.replace(':', '.');
-    const currentDay = currentDate.getDay() === 0 ? 7 : currentDate.getDate();
-    const currentTime = +`${currentDate.getHours()}.${currentDate.getMinutes()}`;
-
-    return currentTime >= startTime && currentTime < endTime && day === currentDay;
-}
-
 const Lesson: React.FC<ILessonProps> = ({ lesson, position }) => {
     const lessonColor = lessonColors[lesson.type as 'lab'];
     const [start, end] = getHours(position);
-    const isCurrentLesson = checkCurrentLesson(start, end, lesson.day);
+    const isCurrentLesson = useCurrentLesson(start, end, lesson.day);
     const lessonColorNotCurrent = useColorModeValue('gray.100', 'gray.700');
     const textColor = useColorModeValue('black', 'white');
 
