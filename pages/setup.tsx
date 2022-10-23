@@ -1,5 +1,11 @@
 
-import { Box, Button, useBoolean } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    useBoolean,
+    useColorModeValue
+} from '@chakra-ui/react';
+
 import { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { wrapper } from 'store';
@@ -8,12 +14,15 @@ import Setup from 'components/Setup/Setup';
 import { useAppSelector } from 'hooks/useStore';
 import { useRouter } from 'next/router';
 import { REDIRECT } from 'constants/routes';
+import Head from 'next/head';
 
 const Settings = dynamic(() => import('components/Settings/Settings'));
 
 const SetupPage: NextPage = () => {
     const [shouldRenderSettings, setShouldRenderSettings] = useBoolean();
+    const themeColor = useColorModeValue('#68D391', '#1A202C');
     const router = useRouter();
+
     const {
         selectedGroup,
         selectedInstitute
@@ -21,7 +30,14 @@ const SetupPage: NextPage = () => {
 
     const isDisabled = !selectedGroup || !selectedInstitute;
 
-    if (!shouldRenderSettings) return <Setup onStart={setShouldRenderSettings.on} />;
+    if (!shouldRenderSettings) return (
+        <>
+            <Head>
+                <meta name="theme-color" content={themeColor} />
+            </Head>
+            <Setup onStart={setShouldRenderSettings.on} />
+        </>
+    );
 
     const handleConfirm = () => {
         router.push(REDIRECT);

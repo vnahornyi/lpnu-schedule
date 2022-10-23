@@ -9,11 +9,13 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { prepareApp } from 'store/settings';
 import { useRouter } from 'next/router';
+import Loading from 'components/UI/Loading';
 
 const InfoModal = dynamic(() => import('components/UI/InfoModal'), { ssr: false });
 
 export const ThemedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const themeColor = useColorModeValue('#68D391', '#1A202C');
+  const { isFallback } = useRouter();
+  const themeColor = useColorModeValue('white', '#1A202C');
 
   return <>
     <Head>
@@ -24,7 +26,7 @@ export const ThemedLayout: React.FC<{ children: React.ReactNode }> = ({ children
       />
       <meta name="theme-color" content={themeColor} />
     </Head>
-    {children}
+    {isFallback ? <Loading /> : children}
   </>;
 }
 
