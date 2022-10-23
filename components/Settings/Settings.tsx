@@ -1,4 +1,5 @@
 import {
+    Box,
     Button,
     ButtonGroup,
     Container,
@@ -11,31 +12,24 @@ import {
     ModalOverlay,
     Stack,
     Text,
-    useColorModeValue
 } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from 'hooks/useStore';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { setSelectedGroup, setSelectedInstitute, setSubgroup } from 'store/settings';
 import { useRouter } from 'next/router';
-import { setSettingsToCookies } from 'utils';
+import { setSettingsToLocalStorage } from 'utils';
 import { SETTINGS } from 'constants/routes';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 const ThemePicker = dynamic(() => import('components/UI/ThemePicker'));
 
-interface ISettingsProps {
-    onBack: () => void;
-}
-
-const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
+const Settings: React.FC = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [modalId, setModalId] = useState<string | null>(null);
     const isSettingsPage = router.asPath.includes(SETTINGS);
-    const shouldRenderAddBtn = isSettingsPage && !window.matchMedia('(display-mode: standalone)').matches;
-    const buttonColor = useColorModeValue('white', 'green.500');
     const {
         institutes,
         selectedGroup,
@@ -43,44 +37,31 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
         subGroup
     } = useAppSelector(state => state.settings);
 
-    const [selected, setSelected] = useState({
-        institute: selectedInstitute ?? '',
-        group: selectedGroup ?? '',
-        subgroup: subGroup ?? 1
-    });
-
-    const isDisabled = !selected.group || !selected.institute;
-
     const groups = useMemo(() => {
-        if (selected.institute) {
-            return institutes.find(el => el.institute === selected.institute)?.groups ?? [];
+        if (selectedInstitute) {
+            return institutes.find(el => el.institute === selectedInstitute)?.groups ?? [];
         }
 
         return institutes.reduce((arr, el) => [...arr, ...el.groups], [] as string[]);
-    }, [selected.institute, institutes]);
+    }, [selectedInstitute, institutes]);
+
+    useEffect(() => {
+        setSettingsToLocalStorage(selectedGroup ?? '', subGroup, selectedInstitute ?? '');
+    }, [selectedGroup, selectedInstitute, subGroup]);
 
     const handleSelectInstitute = (institute: string) => {
-        setSelected({
-            group: '',
-            institute,
-            subgroup: 1
-        });
+        dispatch(setSelectedGroup(''));
+        dispatch(setSelectedInstitute(institute));
         handleCloseModal();
     }
 
     const handleSelectGroup = (group: string) => {
-        setSelected(state => ({
-            ...state,
-            group
-        }));
+        dispatch(setSelectedGroup(group));
         handleCloseModal();
     }
 
     const handleSelectSubgroup = (subgroup: number) => {
-        setSelected(state => ({
-            ...state,
-            subgroup
-        }));
+        dispatch(setSubgroup(subgroup));
     }
 
     const handleOpenModal = (modalId: string) => {
@@ -91,45 +72,36 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
         setModalId(null);
     }
 
-    const handleConfirm = () => {
-        dispatch(setSelectedInstitute(selected.institute));
-        dispatch(setSelectedGroup(selected.group));
-        dispatch(setSubgroup(selected.subgroup));
-        setSettingsToCookies(selected.group, selected.subgroup, selected.institute);
-        router.push('/');
-    }
-
-    const handleAdd = () => {
-        localStorage.setItem('confirmed', '');
-        window.location.href = '/';
-    }
-
     return (
-        <Container maxW='full' minH='100vh' bg={useColorModeValue('green.300', 'gray.800')}>
-            <Flex justify='center' align='center' minH='inherit'>
+        <Container maxW='full' minH='100vh'>
+            <Box
+                as='header'
+                w='full'
+                py='10'
+            >
+                <Text
+                    fontSize={{ base: '2xl', md: '4xl' }}
+                    fontWeight='bold'
+                    align='center'
+                >
+                    Налаштування
+                </Text>
+            </Box>
+            <Flex justify='center' align='center' minH='calc(100vh - 86px - 116px)'>
                 <Container maxW='xl' p='2'>
-                    <Text
-                        fontSize={{ base: '2xl', md: '4xl' }}
-                        fontWeight='bold'
-                        align='center'
-                        mb='20'
-                        color='white'
-                    >
-                        Налаштування
-                    </Text>
                     <Stack spacing={4}>
                         <Text
                             fontSize={{ base: 'md', md: 'lg' }}
                             fontWeight='bold'
-                            color='white'
                         >
-                            Факультет
+                            Інститут
                         </Text>
                         <Button
+                            rounded='xl'
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'institute')}
                         >
-                            {selected.institute || 'Виберіть факультет'}
+                            {selectedInstitute || 'Виберіть інститут'}
                         </Button>
                         <Modal
                             onClose={handleCloseModal}
@@ -137,8 +109,8 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             scrollBehavior='inside'
                         >
                             <ModalOverlay />
-                            <ModalContent>
-                            <ModalHeader>Виберіть факультет</ModalHeader>
+                            <ModalContent mx='4' my='6' rounded='3xl'>
+                            <ModalHeader>Виберіть інститут</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                                 <Stack w='full' spacing={2} direction='column' align='center'>
@@ -158,15 +130,15 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                         <Text
                             fontSize={{ base: 'md', md: 'lg' }}
                             fontWeight='bold'
-                            color='white'
                         >
                             Група
                         </Text>
                         <Button
+                            rounded='xl'
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'group')}
                         >
-                            {selected.group || 'Виберіть групу'}
+                            {selectedGroup || 'Виберіть групу'}
                         </Button>
                         <Modal
                             onClose={handleCloseModal}
@@ -174,7 +146,7 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             scrollBehavior='inside'
                         >
                             <ModalOverlay />
-                            <ModalContent>
+                            <ModalContent mx='4' my='6' rounded='3xl'>
                             <ModalHeader>Виберіть групу</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
@@ -196,48 +168,28 @@ const Settings: React.FC<ISettingsProps> = ({ onBack }) => {
                             <Text
                                 fontSize={{ base: 'md', md: 'lg' }}
                                 fontWeight='bold'
-                                color='white'
                                 align='center'
                             >
                                 Підгрупа
                             </Text>
                             <ButtonGroup justifyContent='center'>
                                 <Button
+                                    rounded='xl'
                                     onClick={handleSelectSubgroup.bind(null, 1)}
-                                    isActive={selected.subgroup === 1}
+                                    isActive={subGroup === 1}
                                 >
                                     1
                                 </Button>
                                 <Button
+                                    rounded='xl'
                                     onClick={handleSelectSubgroup.bind(null, 2)}
-                                    isActive={selected.subgroup === 2}
+                                    isActive={subGroup === 2}
                                 >
                                     2
                                 </Button>
                             </ButtonGroup>
                         </>}
                         {isSettingsPage && <ThemePicker />}
-                        {shouldRenderAddBtn && (
-                            <Button onClick={handleAdd}>
-                                На початковий екран
-                            </Button>
-                        )}
-                        <Button
-                            color='green.500'
-                            w={{ base: 'full', sm: 'auto' }}
-                            onClick={handleConfirm}
-                            disabled={isDisabled}
-                        >
-                            Підтвердити
-                        </Button>
-                        <Button
-                            color={buttonColor}
-                            w={{ base: 'full', sm: 'auto' }}
-                            variant='ghost'
-                            onClick={onBack}
-                        >
-                            Назад
-                        </Button>
                     </Stack>
                 </Container>
             </Flex>

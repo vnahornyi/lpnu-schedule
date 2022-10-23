@@ -1,57 +1,72 @@
 import {
     Box,
-    Container,
     Flex,
     IconButton,
     useColorModeValue
 } from '@chakra-ui/react';
 
-import { CalendarIcon, SettingsIcon } from '@chakra-ui/icons';
+import { SettingsIcon } from '@chakra-ui/icons';
+import { HiClock } from 'react-icons/hi';
 import { useRouter } from 'next/router';
 import { SCHEDULE, SETTINGS } from 'constants/routes';
+import { useAppSelector } from 'hooks/useStore';
+import { translit } from 'utils';
 
 const Footer: React.FC = () => {
+    const { selectedGroup, subGroup } = useAppSelector(state => state.settings);
     const { pathname, push } = useRouter();
 
-    const handlePushRoute = (route: string) => {
-        return () => {
-            push(route);
-        }
+    const handleRouteToSchedule = () => {
+        push(`/schedule/${translit(selectedGroup ?? '')}_${subGroup}`)
+    }
+
+    const handleRouteToSettings = () => {
+        push(SETTINGS);
     }
 
     return (
-        <Container
-            maxW='container.xl'
+        <Box
+            bgColor={useColorModeValue('white', 'gray.700')}
+            as='footer'
+            py='4'
+            px='16'
+            pb='30px'
             w='full'
             pos='fixed'
-            bottom='20px'
+            bottom='0'
+            boxShadow='2xl'
         >
-            <Box
-                p='4'
-                rounded='2xl'
-                bgColor={useColorModeValue('green.300', 'gray.700')}
-            >
-                <Flex alignItems='center' justify='space-evenly'>
-                    <IconButton
-                        aria-label='Розклад'
-                        icon={<CalendarIcon />}
-                        variant='ghost'
-                        color='white'
-                        isActive={pathname === SCHEDULE}
-                        onClick={handlePushRoute(SCHEDULE)}
-                    />
-                    <IconButton
-                        aria-label='Налаштування'
-                        icon={<SettingsIcon />}
-                        variant='ghost'
-                        color='white'
-                        isActive={pathname === SETTINGS}
-                        onClick={handlePushRoute(SETTINGS)}
-
-                    />
-                </Flex>
-            </Box>
-        </Container>
+            <Flex alignItems='center' justify='space-between'>
+                <IconButton
+                    aria-label='Розклад'
+                    icon={<HiClock size={25} />}
+                    variant='ghost'
+                    color={useColorModeValue('gray.400', 'white')}
+                    isActive={pathname === SCHEDULE}
+                    onClick={handleRouteToSchedule}
+                    sx={{
+                        _active: {
+                            bg: 'transparent',
+                            color: 'green.300'
+                        }
+                    }}
+                />
+                <IconButton
+                    aria-label='Налаштування'
+                    icon={<SettingsIcon w='20px' h='20px' />}
+                    variant='ghost'
+                    color={useColorModeValue('gray.400', 'white')}
+                    isActive={pathname === SETTINGS}
+                    onClick={handleRouteToSettings}
+                    sx={{
+                        _active: {
+                            bg: 'transparent',
+                            color: 'green.300'
+                        }
+                    }}
+                />
+            </Flex>
+        </Box>
     );
 }
 

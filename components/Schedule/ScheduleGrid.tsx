@@ -5,7 +5,6 @@ import {
 } from '@chakra-ui/react';
 
 import { ITimetable } from 'types';
-import { getWeekday } from 'utils';
 import Lesson from './Lesson';
 
 interface IScheduleGridProps {
@@ -13,32 +12,24 @@ interface IScheduleGridProps {
 }
 
 const ScheduleGrid: React.FC<IScheduleGridProps> = ({ timetable }) => {
-    const maxDays = Math.max(...timetable.map(el => el.day));
-
-    if (!timetable?.length) return null;
+    if (!timetable?.length) return (
+        <Text
+            align='center'
+            my='20'
+            fontSize='xl'
+            fontWeight='bold'
+        >
+            Сьогодні вихідний,<br />можете відпочити :)
+        </Text>
+    );
 
     return (
-        <Container maxW='container.xl' p={{ base: '2', lg: '4' }} pb={{ base: '92px', lg: '4' }}>
-            {Array.from({length: maxDays}, (_, i) => i + 1).map((numOfDay: number) => (
-                <Stack
-                    key={numOfDay}
-                    direction='column'
-                    spacing='2'
-                >
-                    <Text
-                        fontWeight='bold'
-                        fontSize='xl'
-                        mt='6' 
-                    >
-                        {getWeekday(numOfDay)}
-                    </Text>
-                    <Stack direction={{ base: 'column', lg: 'row' }} spacing={{ base: '2', lg: '4' }}>
-                        {timetable.filter(el => el.day === numOfDay).map(({ lesson, position }) => (
-                            <Lesson key={position} position={position} lesson={lesson} />
-                        ))}
-                    </Stack>
-                </Stack>
-            ))}
+        <Container maxW='container.xl' px='0' pt={{ base: '5', lg: '10' }} pb={{ base: '90px', lg: '4' }}>
+            <Stack direction='column' spacing={{ base: '2', lg: '4' }}>
+                {timetable.map(({ lesson, position }) => (
+                    <Lesson key={position} position={position} lesson={lesson} />
+                ))}
+            </Stack>
         </Container>
     );
 }

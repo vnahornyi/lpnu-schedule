@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getInstitutes } from 'api';
 import { HYDRATE } from 'next-redux-wrapper';
 import { AppThunk, IInstituteAndGroups } from 'types';
-import { getSettingsFromCookies } from 'utils';
+import { getSettingsFromLocalStorage } from 'utils';
 
 interface ISettingsState {
     institutes: IInstituteAndGroups[];
@@ -80,7 +80,7 @@ export default settingsSlice.reducer;
 
 export const prepareApp = (): AppThunk => {
     return async (dispatch) => {
-        const { group, subGroup, institute } = getSettingsFromCookies();
+        const { group, subGroup, institute } = getSettingsFromLocalStorage();
 
         dispatch(setSelectedGroup(typeof group === 'string' ? group : ''));
         dispatch(setSelectedInstitute(typeof institute === 'string' ? institute : ''));
