@@ -45,8 +45,7 @@ const SchedulePage: NextPage = () => {
     const lessons = useAppSelector(state => state.schedule.lessons);
     const { serverSubGroup } = useAppSelector(state => state.settings);
     const week = getWeek() % 2 === 0 ? 2 : 1;
-    const date = new Date();
-    const currentDay = date.getDay() === 0 ? 6 : date.getDay() - 1;
+    const currentDay = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
 
     const timetable = useMemo(() => {
         return lessons
@@ -63,11 +62,11 @@ const SchedulePage: NextPage = () => {
     }, [week, serverSubGroup, lessons]);
 
     const renderTabs = useCallback(() => {
-        const currentDate = new Date();
+        const currDay = new Date().getDay();
         const days = [];
 
-        for (let i = 0; i < 7; i++) {
-            days.push(currentDate.getDay() === 0 ? 6 : (currentDate.getDay() - 1 - i));
+        for (let i = currDay === 0 ? currDay - 6 : currDay - 1, last = i + 6; i <= last; i++) {
+            days.push(i);
         }
 
         return days.map(day => <FormatedTab key={day} day={day} />);

@@ -19,7 +19,7 @@ const useDate = (props: IDateProps): string => {
     const date = new Date();
 
     if (props.day) {
-        date.setDate(date.getDate() - props.day);
+        date.setDate(date.getDate() + props.day);
     }
 
     return new Intl.DateTimeFormat('uk', options[props.type] as object).format(date);
