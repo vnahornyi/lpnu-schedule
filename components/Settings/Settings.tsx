@@ -97,6 +97,7 @@ const Settings: React.FC = () => {
                             Інститут
                         </Text>
                         <Button
+                            rounded='xl'
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'institute')}
                         >
@@ -108,7 +109,7 @@ const Settings: React.FC = () => {
                             scrollBehavior='inside'
                         >
                             <ModalOverlay />
-                            <ModalContent mx='4'>
+                            <ModalContent mx='4' my='6' rounded='3xl'>
                             <ModalHeader>Виберіть інститут</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
@@ -133,6 +134,7 @@ const Settings: React.FC = () => {
                             Група
                         </Text>
                         <Button
+                            rounded='xl'
                             rightIcon={<ChevronDownIcon />}
                             onClick={handleOpenModal.bind(null, 'group')}
                         >
@@ -144,7 +146,7 @@ const Settings: React.FC = () => {
                             scrollBehavior='inside'
                         >
                             <ModalOverlay />
-                            <ModalContent mx='4'>
+                            <ModalContent mx='4' my='6' rounded='3xl'>
                             <ModalHeader>Виберіть групу</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
@@ -172,12 +174,14 @@ const Settings: React.FC = () => {
                             </Text>
                             <ButtonGroup justifyContent='center'>
                                 <Button
+                                    rounded='xl'
                                     onClick={handleSelectSubgroup.bind(null, 1)}
                                     isActive={subGroup === 1}
                                 >
                                     1
                                 </Button>
                                 <Button
+                                    rounded='xl'
                                     onClick={handleSelectSubgroup.bind(null, 2)}
                                     isActive={subGroup === 2}
                                 >

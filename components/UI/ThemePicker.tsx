@@ -21,6 +21,7 @@ const ThemePicker: React.FC = () => {
         <Flex py='4' justify='center'>
             <ButtonGroup size='lg' isAttached variant='outline'>
                 <IconButton
+                    rounded='xl'
                     aria-label='Змінити на світлу тему'
                     icon={<SunIcon w='20px' h='20px' />}
                     onClick={setColorMode.bind(null, ColorModes.LIGHT)}
@@ -31,6 +32,7 @@ const ThemePicker: React.FC = () => {
                     onClick={setColorMode.bind(null, ColorModes.DARK)}
                 />
                 <IconButton
+                    rounded='xl'
                     aria-label='Системна'
                     onClick={setColorMode.bind(null, ColorModes.SYSTEM)}
                     icon={<MdBrightnessAuto size={22} />}

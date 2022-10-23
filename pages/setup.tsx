@@ -62,6 +62,7 @@ const SetupPage: NextPage = () => {
                     mx='auto'
                     display='block'
                     colorScheme='green'
+                    rounded='xl'
                     disabled={isDisabled}
                     onClick={handleConfirm}
                 >
