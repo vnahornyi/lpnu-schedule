@@ -133,7 +133,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 ...groups.map(el => ({ params: { group: `${el}_1` } })),
                 ...groups.map(el => ({ params: { group: `${el}_2` } }))
             ],
-            fallback: 'blocking'
+            fallback: true
         }
     } catch {
         return {
