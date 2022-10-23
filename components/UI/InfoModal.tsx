@@ -19,7 +19,7 @@ const InfoModal: React.FC<IModalProps> = ({ isOpen, onClose }) => {
     return (
         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent my='auto' mx='4'>
+            <ModalContent mx='4' my='6' rounded='3xl'>
                 <ModalHeader>Доступ з початкового екрану</ModalHeader>
                 <ModalBody>
                     <Text>
