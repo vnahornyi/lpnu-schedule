@@ -20,7 +20,7 @@ const Settings = dynamic(() => import('components/Settings/Settings'));
 
 const SetupPage: NextPage = () => {
     const [shouldRenderSettings, setShouldRenderSettings] = useBoolean();
-    const themeColor = useColorModeValue('#68D391', '#1A202C');
+    const themeColor = useColorModeValue('#48BB78', '#1A202C');
     const router = useRouter();
 
     const {

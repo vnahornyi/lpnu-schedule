@@ -108,7 +108,7 @@ const Lesson: React.FC<ILessonProps> = ({ lesson, position }) => {
                                     aria-label={lesson.urls[0]}
                                     icon={<ExternalLinkIcon w='5' h='5' />}
                                     variant='link'
-                                    color={isCurrentLesson ? 'white' : 'initial'}
+                                    color={isCurrentLesson ? 'white' : textColor}
                                 />
                             </LinkOverlay>
                         )}
