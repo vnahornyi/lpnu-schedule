@@ -19,7 +19,7 @@ const ScheduleGrid: React.FC<IScheduleGridProps> = ({ timetable }) => {
             fontSize='xl'
             fontWeight='bold'
         >
-            Сьогодні вихідний, можете відпочити :)
+            Сьогодні вихідний,<br />можете відпочити :)
         </Text>
     );
 
