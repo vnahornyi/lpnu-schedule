@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { prepareApp } from 'store/settings';
 import { useRouter } from 'next/router';
-import { REDIRECT } from 'constants/routes';
 
 const InfoModal = dynamic(() => import('components/UI/InfoModal'), { ssr: false });
 
@@ -33,15 +32,12 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { events } = useRouter();
   const [isConfirmed, setConfirmed] = useState<string | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const isConfirmed = !!localStorage.getItem('confirmed') || window.matchMedia('(display-mode: standalone)').matches;
 
     setConfirmed(isConfirmed ? '1' : '');
-
-    if (!isConfirmed && router.pathname !== REDIRECT) router.replace(REDIRECT);
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     const handleUpdateStore = () => {
@@ -64,8 +60,8 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
   }, [store, events, isConfirmed]);
 
   const handleClose = () => {
+    setConfirmed('1');
     localStorage.setItem('confirmed', '1');
-    window.location.href = '/';
   }
 
   return (

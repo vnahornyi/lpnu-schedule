@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Container, Fade, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Container, Fade, Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from '@chakra-ui/react';
 import useBrowser from 'hooks/useBrowser';
 import dynamic from 'next/dynamic';
 import { wrapper } from 'store';
@@ -18,7 +18,17 @@ const Grid = dynamic(() => import('components/Schedule/ScheduleGrid'));
 export const FormatedTab: React.FC<{ day: number }> = ({ day }) => {
     const date = useDate({ type: 'small', day });
 
-    return <Tab w='calc(100% / 7)' dangerouslySetInnerHTML={{ __html: date.replace(',', '<br>') }} />
+    return (
+        <Tab
+            w='calc(100% / 7)'
+            color={useColorModeValue('black', 'white')}
+            dangerouslySetInnerHTML={{ __html: date.replace(',', '<br>') }}
+            _selected={{
+                bgColor: 'green.300',
+                color: 'white'
+            }}
+        />
+    );
 }
 
 const SchedulePage: NextPage = () => {

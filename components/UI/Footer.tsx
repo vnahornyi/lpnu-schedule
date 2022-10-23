@@ -27,8 +27,10 @@ const Footer: React.FC = () => {
     return (
         <Box
             bgColor={useColorModeValue('white', 'gray.700')}
+            as='footer'
             py='4'
             px='16'
+            pb='30px'
             w='full'
             pos='fixed'
             bottom='0'
@@ -45,7 +47,7 @@ const Footer: React.FC = () => {
                     sx={{
                         _active: {
                             bg: 'transparent',
-                            color: 'blue.400'
+                            color: 'green.300'
                         }
                     }}
                 />
@@ -59,7 +61,7 @@ const Footer: React.FC = () => {
                     sx={{
                         _active: {
                             bg: 'transparent',
-                            color: 'blue.400'
+                            color: 'green.300'
                         }
                     }}
                 />

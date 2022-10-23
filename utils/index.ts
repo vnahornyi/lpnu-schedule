@@ -119,13 +119,13 @@ export function testSubgroup(lesson: ILesson, subgroup: number) {
         (subgroup === 2 && lesson.isSecondSubgroup);
 }
 
-export function setSettingsToCookies(group: string, subGroup: number, institute: string) {
+export function setSettingsToLocalStorage(group: string, subGroup: number, institute: string) {
     localStorage.setItem('group', translit(group));
     localStorage.setItem('subgroup', subGroup.toString());
     localStorage.setItem('institute', translit(institute));
 }
 
-export function getSettingsFromCookies() {
+export function getSettingsFromLocalStorage() {
     const group = translit(localStorage.getItem('group') as string ?? '', true);
     const subGroup = localStorage.getItem('subgroup') ?? null;
     const institute = translit(localStorage.getItem('institute') as string ?? '', true);

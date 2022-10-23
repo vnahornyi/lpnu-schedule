@@ -24,8 +24,8 @@ const ScheduleGrid: React.FC<IScheduleGridProps> = ({ timetable }) => {
     );
 
     return (
-        <Container maxW='container.xl' p='0' pb={{ base: '90px', lg: '4' }}>
-            <Stack direction={{ base: 'column', lg: 'row' }} spacing={{ base: '2', lg: '4' }}>
+        <Container maxW='container.xl' px='0' pt={{ base: '5', lg: '10' }} pb={{ base: '90px', lg: '4' }}>
+            <Stack direction='column' spacing={{ base: '2', lg: '4' }}>
                 {timetable.map(({ lesson, position }) => (
                     <Lesson key={position} position={position} lesson={lesson} />
                 ))}
