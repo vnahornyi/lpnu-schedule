@@ -4,7 +4,7 @@ const useCurrentLesson = (start: string, end: string, day: number): boolean => {
     const currentDate = useRef(new Date());
     const startTime = +start.replace(':', '.');
     const endTime = +end.replace(':', '.');
-    const currentDay = currentDate.current.getDay() === 0 ? 7 : currentDate.current.getDate();
+    const currentDay = currentDate.current.getDay() === 0 ? 7 : currentDate.current.getDay();
     const currentTime = +`${currentDate.current.getHours()}.${currentDate.current.getMinutes()}`;
 
     useEffect(() => {
