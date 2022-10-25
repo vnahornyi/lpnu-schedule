@@ -65,8 +65,8 @@ const SchedulePage: NextPage = () => {
         const currDay = new Date().getDay();
         const days = [];
 
-        for (let i = currDay === 0 ? currDay - 6 : currDay - 1, last = i + 6; i <= last; i++) {
-            days.push(i);
+        for (let i = 0; i < 7; i++) {
+            days.push(i - (currDay === 0 ? 6 : currDay - 1));
         }
 
         return days.map(day => <FormatedTab key={day} day={day} />);
