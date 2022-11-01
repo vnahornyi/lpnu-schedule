@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
     const { pathname, push } = useRouter();
 
     const handleRouteToSchedule = () => {
-        push(`/schedule/${translit(selectedGroup ?? '')}_${subGroup}`)
+        push(`/schedule/${translit(selectedGroup ?? '')}_${subGroup}`.toLowerCase());
     }
 
     const handleRouteToSettings = () => {

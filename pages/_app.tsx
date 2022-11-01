@@ -32,7 +32,7 @@ export const ThemedLayout: React.FC<{ children: React.ReactNode }> = ({ children
 
 const App: React.FC<AppProps> = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { events, replace, asPath } = useRouter();
+  const { events } = useRouter();
   const [isConfirmed, setConfirmed] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,14 +40,6 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
 
     setConfirmed(isConfirmed ? '1' : '');
   }, []);
-
-  useEffect(() => {
-    const lowerPath = asPath.toLowerCase();
-
-    if (lowerPath === asPath) return;
-
-    replace(lowerPath);
-  }, [asPath, replace]);
 
   useEffect(() => {
     const handleUpdateStore = () => {

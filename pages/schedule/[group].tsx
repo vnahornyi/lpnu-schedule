@@ -18,7 +18,7 @@ import { prepareLessons } from 'store/schedule';
 import { useAppSelector } from 'hooks/useStore';
 import { getWeek, testSubgroup, testWeek } from 'utils';
 import { translit } from 'utils';
-import { getInstitutes } from 'api';
+import { getAllGroups } from 'api';
 import DashboardLayout from 'layouts/DashboardLayout';
 import useDate from 'hooks/useDate';
 
@@ -123,9 +123,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(store =>
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const groups = (await getInstitutes())
-            .reduce((arr: string[], el) => [ ...arr, ...el.groups ], [])
-            .map(group => translit(group.toLowerCase()));
+        const groups = (await getAllGroups()).map(group => translit(group.toLowerCase()));
 
         return {
             paths: [
