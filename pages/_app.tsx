@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import type { AppProps } from 'next/app';
 import { ChakraProvider, CSSReset, useColorModeValue } from '@chakra-ui/react';
 import { Provider } from 'react-redux';
@@ -75,8 +74,7 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
         </ThemedLayout>
         <InfoModal isOpen={isConfirmed === ''} onClose={handleClose} />
       </ChakraProvider>
-    </Provider>
-    
+    </Provider> 
   );
 }
 
