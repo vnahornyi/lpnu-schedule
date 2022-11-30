@@ -42,6 +42,7 @@ class MyDocument extends Document {
                     <meta property="og:site_name" content="Розклад NULP" />
                     <meta property="og:url" content="https://nulp-schedule.vercel.app" />
                     <meta property="og:image" content="https://nulp-schedule.vercel.app/icons/apple-touch-icon.png" />
+                    <meta name="google-site-verification" content="GRhVYm42ADBjA4EpQaSV_y_QIHeL_1SfhyAYGsD4WYs" />
                 </Head>
                 <body>
                     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
