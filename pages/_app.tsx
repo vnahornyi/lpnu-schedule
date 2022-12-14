@@ -18,7 +18,7 @@ export const ThemedLayout: React.FC<{ children: React.ReactNode }> = ({ children
 
   return <>
     <Head>
-      <title>Розклад NULP</title>
+      <title>Розклад LPNU</title>
       <meta
         name='viewport'
         content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'

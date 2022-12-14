@@ -36,7 +36,7 @@ const Setup: React.FC<{ onStart: () => void }> = ({ onStart }) => {
                         fontSize='2xl'
                         align='center'
                     >
-                        Вітаю у програмі Розклад NULP
+                        Вітаю у програмі Розклад LPNU
                     </Text>
                     <Text
                         mt='4'

@@ -4,7 +4,7 @@ import axios from 'axios';
 import jsdom from 'jsdom';
 const { JSDOM } = jsdom;
 
-const NULP = 'https://student.lpnu.ua/';
+const LPNU = 'https://student.lpnu.ua/';
 let timetableSuffix = 'students_schedule';
 
 function setSuffix(suffix) {
@@ -12,7 +12,7 @@ function setSuffix(suffix) {
 }
 
 function buildUrl(params = {}) {
-    const baseUrl = NULP + timetableSuffix;
+    const baseUrl = LPNU + timetableSuffix;
     const url = new URL(baseUrl);
     for (const key in params) {
         url.searchParams.set(key, params[key]);
