@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getLessons } from 'api';
+import parser from 'lib/utils';
 import { HYDRATE } from 'next-redux-wrapper';
 import { AppThunk, ILesson } from 'types';
 
@@ -35,7 +35,7 @@ export default scheduleSlice.reducer;
 
 export const prepareLessons = (group: string): AppThunk => {
     return async (dispatch) => {
-        const lessons = await getLessons(group);
+        const lessons = await parser.getTimetable(group);
 
         dispatch(setLessons(lessons));
     }

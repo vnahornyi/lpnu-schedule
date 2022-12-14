@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getGroupsByInstitute, getInstitutes } from 'api';
+import parser from 'lib/utils';
 import { HYDRATE } from 'next-redux-wrapper';
 import { AppThunk, IInstituteAndGroups } from 'types';
 import { getSettingsFromLocalStorage } from 'utils';
@@ -92,10 +92,10 @@ export const prepareApp = (): AppThunk => {
 export const prepareInstitutes = (): AppThunk => {
     return async (dispatch) => {
         const data: IInstituteAndGroups[] = [];
-        const institutes = await getInstitutes();
+        const institutes = await parser.getInstitutes();
 
         for await (const institute of institutes) {
-            const groups = await getGroupsByInstitute(institute);
+            const groups = await parser.getGroups(institute);
 
             data.push({
                 institute,

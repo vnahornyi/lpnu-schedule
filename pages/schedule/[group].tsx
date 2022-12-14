@@ -18,9 +18,9 @@ import { prepareLessons } from 'store/schedule';
 import { useAppSelector } from 'hooks/useStore';
 import { getWeek, testSubgroup, testWeek } from 'utils';
 import { translit } from 'utils';
-import { getAllGroups } from 'api';
 import DashboardLayout from 'layouts/DashboardLayout';
 import useDate from 'hooks/useDate';
+import parser from 'lib/utils';
 
 const Grid = dynamic(() => import('components/Schedule/ScheduleGrid'));
 
@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(store =>
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const groups = (await getAllGroups()).map(group => translit(group.toLowerCase()));
+        const groups = (await parser.getGroups()).map(group => translit(group.toLowerCase()));
 
         return {
             paths: [

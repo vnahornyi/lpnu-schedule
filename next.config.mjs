@@ -1,14 +1,29 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa')({
+import nextPwa from 'next-pwa';
+
+const withPWA = nextPwa({
 	dest: 'public',
     register: true,
     skipWaiting: true,
-	disable: process.env.NODE_ENV === 'development'
+	disable: process.env.NODE_ENV === 'development',
+	maximumFileSizeToCacheInBytes: 10000
 });
 
-module.exports = withPWA({
+export default withPWA({
 	reactStrictMode: true,
 	swcMinify: true,
+	webpack: config => {
+		config.resolve.fallback = {
+			...config.resolve.fallback,
+			net: false,
+			tls: false,
+			fs: false,
+			child_process: false,
+			perf_hooks: false
+		};
+
+		return config;
+	},
 	async headers() {
 		return [
 			{
